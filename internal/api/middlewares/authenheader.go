@@ -2,8 +2,8 @@ package middlewares
 
 import (
 	"fmt"
-	"macus/pkg/models"
-	"macus/pkg/models/apperrors"
+	"macus/internal/pkg/models"
+	"macus/internal/pkg/models/apperrors"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator"

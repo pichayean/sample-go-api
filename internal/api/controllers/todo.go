@@ -1,7 +1,7 @@
-package handlers
+package controllers
 
 import (
-	"macus/pkg/models"
+	"macus/internal/pkg/models"
 	"macus/pkg/services"
 	"net/http"
 
@@ -19,6 +19,15 @@ func NewTodoHandler(c *gentleman.Client) *TodoHandler {
 	return &TodoHandler{todoService: ser}
 }
 
+// Todos godoc
+// @Summary  Get All Todos
+// @Schemes
+// @Description Get All Todos
+// @Tags Todos
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.TodoModel
+// @Router /todos [get]
 func (h TodoHandler) GetAll(c *gin.Context) {
 	todoList, err := h.todoService.GetAll()
 	if err != nil {

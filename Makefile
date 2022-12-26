@@ -1,29 +1,19 @@
 .PHONY: build maria
 
-build:
-	go build \
-		-ldflags "-X main.buildcommit=`git rev-parse --short HEAD` \
-		-X main.buildtime=`date "+%Y-%m-%dT%H:%M:%S%Z:00"`" \
-		-o app
-
-maria:
-	docker run -p 127.0.0.1:3306:3306  --name some-mariadb \
-	-e MARIADB_ROOT_PASSWORD=my-secret-pw -e MARIADB_DATABASE=myapp -d mariadb:latest
-
 image:
-	docker build -t sample-go-api:test -f Dockerfile .
-
-# container:
-# 	docker run -p:8081:8081 -e APP_ENV='dev' \
-# 	--name customerapi customerapi:test
+	docker build --no-cache \
+	-t sample-go-api:test -f Dockerfile .
 
 container:
-	docker run -p:8081:8081 --env-file ./dev.env \
-	--name customerapi customerapi:test
+	docker run -p:8081:8081  --env-file ./dev.env \
+	--name samplegoapi sample-go-api:test
 
-# container:
-# 	docker run -p:8081:8081 --env-file ./.dev.env --link some-mariadb:db \
-# 	--name myapp todo:test
+run 
+
+docs:	
+	swag init -d ./cmd/http --parseDependency  -o docs 
+	
+# swag init --dir ./cmd/api/main.go --parseDependency --output docs
 
 installvegeta:
 	go install github.com/tsenart/vegeta@latest

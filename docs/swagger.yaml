@@ -1,0 +1,33 @@
+definitions:
+  models.TodoModel:
+    properties:
+      completed:
+        type: boolean
+      id:
+        type: integer
+      title:
+        type: string
+      userid:
+        type: integer
+    type: object
+info:
+  contact: {}
+  title: Todo API documentation
+  version: 1.0.0
+paths:
+  /todos:
+    get:
+      consumes:
+      - application/json
+      description: Get All Todos
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.TodoModel'
+      summary: Get All Todos
+      tags:
+      - Todos
+swagger: "2.0"
